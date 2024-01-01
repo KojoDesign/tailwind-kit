@@ -10,12 +10,12 @@
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
   },
   "exports": {
-		".": {
-			"import": "./dist/esm/index.mjs",
-			"require": "./dist/cjs/index.js"
-		},
-		"./*": "./dist/*"
-	},
+    ".": {
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.js"
+    },
+    "./*": "./dist/*"
+  },
   "files": [
     "dist"
   ],
@@ -25,6 +25,7 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.6",

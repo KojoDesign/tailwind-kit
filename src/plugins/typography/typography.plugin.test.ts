@@ -1,7 +1,7 @@
-import "../testing/matchers";
+import "../../testing/matchers";
 
-import { generateCSS, html } from "../testing";
-import { typography } from "./typography";
+import { generateCSS, html } from "../../testing";
+import { typography } from "./typography.plugin";
 
 test("generates variants correctly", async () => {
   const css = await generateCSS(html`<div class="typography-headline"></div>`, {
