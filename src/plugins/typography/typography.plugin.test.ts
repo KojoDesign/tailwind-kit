@@ -1,30 +1,40 @@
-import "../../testing/matchers";
+import "../../testing/matchers.js";
 
-import { generateCSS, html } from "../../testing";
-import { typography } from "./typography.plugin";
+import { generateCSS, html } from "../../testing/index.js";
+import { typography } from "./typography.plugin.js";
 
 test("generates variants correctly", async () => {
-  const css = await generateCSS(html`<div class="typography-headline"></div>`, {
-    plugins: [typography],
-    theme: {
-      kit: {
-        typography: {
-          base: {
-            lineHeight: 1,
-          },
-          variants: {
-            headline: {
-              fontFamily: "red",
+  const css = await generateCSS(
+    html`<div class="typography typography-headline"></div>`,
+    {
+      plugins: [typography],
+      theme: {
+        kit: {
+          typography: {
+            base: {
+              lineHeight: 1,
+            },
+            variants: {
+              headline: {
+                fontFamily: "red",
+              },
             },
           },
         },
       },
     },
-  });
+  );
 
   expect(css).toMatchCSS(`
-    .typography-headline {
+    .typography {
       line-height: 1;
+      --kit-typography-base-color: inherit;
+      --kit-typography-base-color-inverted: rgb(255, 255, 255);
+      --kit-typography-font-size: inherit;
+      color: var(--kit-typography-base-color);
+      font-size: var(--kit-typography-font-size)
+    }
+    .typography-headline {
       font-family: red;
     }
   `);
@@ -64,6 +74,44 @@ test("generates colors correctly", async () => {
     }
     .typography-invert {
       --kit-typography-base-color: var(--kit-typography-base-color-inverted);
+    }
+  `);
+});
+
+test("generates sizes correctly", async () => {
+  const css = await generateCSS(
+    html`<div class="typography-headline typography-sm"></div>`,
+    {
+      plugins: [typography],
+      theme: {
+        kit: {
+          typography: {
+            variants: {
+              headline: {
+                fontFamily: "Lato",
+              },
+            },
+            sizes: {
+              sm: (variant: string) => {
+                if (variant === "headline") {
+                  return "2rem";
+                }
+                return "1rem";
+              },
+            },
+          },
+        },
+      },
+    },
+  );
+
+  expect(css).toMatchCSS(`
+    .typography-headline {
+      font-family: Lato;
+      --kit-typography-font-size-sm: 1rem
+    }
+    .typography-sm {
+      --kit-typography-font-size: var(--kit-typography-font-size-sm)
     }
   `);
 });

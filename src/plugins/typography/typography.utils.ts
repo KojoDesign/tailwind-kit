@@ -1,6 +1,6 @@
 import { TinyColor } from "@ctrl/tinycolor";
 
-import { ColorValue, TypographyConfig } from "./typography.types";
+import { ColorValue, TypographyConfig } from "./typography.types.js";
 
 export function invertColor(color: string) {
   const tc = new TinyColor(color);
@@ -42,13 +42,10 @@ export function getDefaults(config: TypographyConfig) {
   const { colors, sizes } = config;
 
   const { light: defaultLight, dark: defaultDark } = getColorObject(
-    colors["DEFAULT"] ?? "inherit",
+    colors?.["DEFAULT"] ?? "inherit",
   );
 
-  const defaultFontSize =
-    (typeof sizes === "function"
-      ? sizes("base")["DEFAULT"]
-      : sizes["DEFAULT"]) ?? "inherit";
+  const defaultFontSize = sizes?.["DEFAULT"] ?? "inherit";
 
   return { defaultFontSize, defaultDark, defaultLight };
 }

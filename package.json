@@ -9,6 +9,7 @@
     "build": "concurrently \"pnpm:build:cjs\" \"pnpm:build:esm\"",
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
   },
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/esm/index.mjs",
@@ -46,6 +47,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
+    "change-case": "^5.3.0",
     "deepmerge": "^4.3.1"
   }
 }

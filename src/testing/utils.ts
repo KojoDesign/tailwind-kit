@@ -1,5 +1,6 @@
-import postcss from "postcss";
 import path from "node:path";
+
+import postcss from "postcss";
 import tailwindcss, { Config } from "tailwindcss";
 
 export const html = String.raw;
@@ -24,7 +25,7 @@ export async function generateCSS(html: string, config: Partial<Config>) {
   ].join("\n");
 
   const { css } = await processor.process(tw, {
-    from: `${path.resolve(__filename)}?test=${currentTestName}`,
+    from: undefined,
   });
 
   return css;

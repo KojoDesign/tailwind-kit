@@ -38,9 +38,10 @@ export type TypographySettings = Partial<Record<TypographyProperty, string>>;
 
 export type ColorValue = string | { light: string; dark: string };
 
-export type FontSizes<T> =
-  | Record<string, string>
-  | ((variant: T) => Record<string, string>);
+export type FontSizes<T> = { DEFAULT?: string } & Record<
+  string,
+  ((variant: T) => string) | string
+>;
 
 export type TypographyConfig<T extends string = string> = {
   base: TypographySettings;

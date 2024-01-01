@@ -1,18 +1,20 @@
-import { withOptions } from "tailwindcss/plugin";
-import { PluginAPI } from "tailwindcss/types/config";
+import { kebabCase } from "change-case";
+import plugin from "tailwindcss/plugin.js";
 
-import { KitOptions } from "../../types";
-import { defaultTypographyTheme } from "./typography.config";
+import { KitOptions } from "../../types.js";
+import { defaultTypographyTheme } from "./typography.config.js";
 import {
   VARIABLE_COLOR_BASE,
   VARIABLE_COLOR_INVERTED,
   VARIABLE_FONT_SIZE,
-} from "./typography.constants";
-import { TypographyConfig } from "./typography.types";
-import { getColorObject, getDefaults } from "./typography.utils";
+} from "./typography.constants.js";
+import { TypographyConfig } from "./typography.types.js";
+import { getColorObject, getDefaults } from "./typography.utils.js";
+
+const { withOptions } = plugin;
 
 const typography = withOptions<Partial<KitOptions["typography"]>>(
-  ({ prefix = "typography" }) =>
+  ({ prefix = "typography" } = {}) =>
     ({ addUtilities, addComponents, theme }) => {
       const typography: TypographyConfig = theme("kit.typography");
 
@@ -23,7 +25,7 @@ const typography = withOptions<Partial<KitOptions["typography"]>>(
 
       // Add color variants
       addUtilities(
-        Object.entries(colors).map(([name, color]) => {
+        Object.entries(colors ?? {}).map(([name, color]) => {
           const className = `.${prefix}-${name}`;
 
           const { light, dark } = getColorObject(color);
@@ -39,15 +41,13 @@ const typography = withOptions<Partial<KitOptions["typography"]>>(
 
       // Add size utilities
       addUtilities(
-        Object.entries(sizes).map(([name, size]) => {
-          const className = `.${prefix}-${name}`;
-
-          const { light, dark } = getColorObject(color);
+        Object.keys(sizes ?? {}).map((name) => {
+          const kcName = kebabCase(name);
+          const className = `.${prefix}-${kcName}`;
 
           return {
             [className]: {
-              [VARIABLE_COLOR_BASE]: light,
-              [VARIABLE_COLOR_INVERTED]: dark,
+              [VARIABLE_FONT_SIZE]: `var(${VARIABLE_FONT_SIZE}-${kcName})`,
             },
           };
         }),
@@ -75,20 +75,21 @@ const typography = withOptions<Partial<KitOptions["typography"]>>(
       // Add typographic variants
       addComponents(
         Object.entries(variants ?? {}).map(([name, rules]) => {
+          const className = `.${prefix}-${kebabCase(name)}`;
+
           let sizeVariables = {};
 
-          if (typeof sizes === "function") {
-            sizeVariables = Object.entries(sizes(name)).reduce(
-              (acc, [name, size]) => ({
-                ...acc,
-                [`${VARIABLE_FONT_SIZE}-${name}`]: size,
-              }),
-              {},
-            );
-          }
+          sizeVariables = Object.entries(sizes ?? {}).reduce(
+            (acc, [name, size]) => ({
+              ...acc,
+              [`${VARIABLE_FONT_SIZE}-${kebabCase(name)}`]:
+                typeof size === "function" ? size(name) : size,
+            }),
+            {},
+          );
 
           return {
-            [`.${prefix}-${name}`]: {
+            [className]: {
               ...rules,
               ...sizeVariables,
             },

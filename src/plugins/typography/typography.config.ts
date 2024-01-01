@@ -1,5 +1,5 @@
-import { KitConfigValue, KitOptions } from "../../types";
-import { TypographyConfig } from "./typography.types";
+import { KitConfigValue } from "../../types.js";
+import { TypographyConfig } from "./typography.types.js";
 
 export const defaultTypographyTheme: KitConfigValue<
   TypographyConfig,

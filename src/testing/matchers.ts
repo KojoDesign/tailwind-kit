@@ -2,12 +2,10 @@
  * Most of the following implementation was taken from the Tailwind team
  * https://github.com/tailwindlabs/tailwindcss-typography/blob/master/jest/customMatchers.js
  */
-import prettier from "prettier";
-
 import { diff } from "jest-diff";
 
-import { CustomMatcher } from "../types";
-import { DEFAULT_CSS } from "./constants";
+import { CustomMatcher } from "../types.js";
+import { DEFAULT_CSS } from "./constants.js";
 
 interface CustomMatchers<R> {
   toMatchCSS: (expected: string) => string;
