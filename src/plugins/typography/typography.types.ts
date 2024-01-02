@@ -34,18 +34,24 @@ export type TypographyProperty =
   | "wordBreak"
   | "wordSpacing";
 
-export type TypographySettings = Partial<Record<TypographyProperty, string>>;
+export type TypographyCSS = Partial<Record<TypographyProperty, string>>;
 
 export type ColorValue = string | { light: string; dark: string };
 
-export type FontSizes<T> = { DEFAULT?: string } & Record<
-  string,
-  ((variant: T) => string) | string
->;
+export type FontSizes<T> = Record<string, ((variant: T) => string) | string>;
 
-export type TypographyConfig<T extends string = string> = {
-  base: TypographySettings;
-  variants: Record<T, TypographySettings>;
+export type TypographyTheme<T extends string = string> = {
+  base: TypographyCSS;
+  variants: Record<T, TypographyCSS>;
   sizes: FontSizes<T>;
   colors: Record<string, ColorValue>;
 };
+
+export interface TypographyOptions {
+  classPrefix: string;
+  themeKey: string;
+  gradient: {
+    toOpacity: number;
+    multiline: boolean;
+  };
+}

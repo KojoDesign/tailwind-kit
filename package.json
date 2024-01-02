@@ -2,25 +2,15 @@
   "name": "tailwind-toolkit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "build:cjs": "tsup src/index.ts --dts --format cjs -d dist/cjs",
-    "build:esm": "tsup src/index.ts --dts --format esm -d dist/esm",
-    "build": "concurrently \"pnpm:build:cjs\" \"pnpm:build:esm\"",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
+    "build": "tsup-node src/index.ts --dts --format cjs",
+    "test": "jest"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.js"
-    },
-    "./*": "./dist/*"
-  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "types": "dist/cjs/index.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -47,7 +37,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
-    "change-case": "^5.3.0",
-    "deepmerge": "^4.3.1"
+    "deepmerge": "^4.3.1",
+    "kebab-case": "^1.0.2"
   }
 }

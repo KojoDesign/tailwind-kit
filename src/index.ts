@@ -1,7 +1,14 @@
-import plugin, { withOptions } from "tailwindcss/plugin";
 import { all as mergeAll } from "deepmerge";
-import { typography } from "./plugins";
+import plugin from "tailwindcss/plugin";
+
+import { typography, type TypographyTheme } from "./plugins/index";
 import { KitOptions } from "./types";
+
+declare module "tailwindcss" {
+  interface CustomThemeConfig {
+    typography: TypographyTheme;
+  }
+}
 
 export default (options: Partial<KitOptions>) => {
   const resolvedTypography = typography(options.typography ?? {});
@@ -12,3 +19,5 @@ export default (options: Partial<KitOptions>) => {
     resolvedTypography.handler(api);
   }, defaultConfig);
 };
+
+export { typography };

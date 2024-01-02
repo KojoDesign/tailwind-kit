@@ -1,6 +1,9 @@
 import { TinyColor } from "@ctrl/tinycolor";
 
-import { ColorValue, TypographyConfig } from "./typography.types.js";
+import merge from "deepmerge";
+
+import { defaultOptions } from "./typography.config";
+import { ColorValue, TypographyOptions } from "./typography.types";
 
 export function invertColor(color: string) {
   const tc = new TinyColor(color);
@@ -9,7 +12,7 @@ export function invertColor(color: string) {
 
   return new TinyColor({
     h: hsv.h,
-    s: hsv.s,
+    s: 0,
     v: complement * 100,
   }).toRgbString();
 }
@@ -24,28 +27,14 @@ export function getColorObject(color: ColorValue) {
   }
 
   if (!dark) {
-    const tc = new TinyColor(light);
-    const hsv = tc.toHsv();
-    const complement = 1 - hsv.v;
-
-    dark = new TinyColor({
-      h: hsv.h,
-      s: hsv.s,
-      v: complement * 100,
-    }).toRgbString();
+    dark = invertColor(light);
   }
 
   return { light, dark };
 }
 
-export function getDefaults(config: TypographyConfig) {
-  const { colors, sizes } = config;
-
-  const { light: defaultLight, dark: defaultDark } = getColorObject(
-    colors?.["DEFAULT"] ?? "inherit",
-  );
-
-  const defaultFontSize = sizes?.["DEFAULT"] ?? "inherit";
-
-  return { defaultFontSize, defaultDark, defaultLight };
+export function getFullOptions(
+  options?: Partial<TypographyOptions>,
+): TypographyOptions {
+  return merge(defaultOptions, options ?? {});
 }

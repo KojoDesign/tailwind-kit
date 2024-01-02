@@ -1,11 +1,11 @@
 /**
  * Most of the following implementation was taken from the Tailwind team
- * https://github.com/tailwindlabs/tailwindcss-typography/blob/master/jest/customMatchers.js
+ * https://github.com/tailwindlabs/tailwindcss-typography/blob/master/jest/customMatchers
  */
 import { diff } from "jest-diff";
 
-import { CustomMatcher } from "../types.js";
-import { DEFAULT_CSS } from "./constants.js";
+import { CustomMatcher } from "../types";
+import { DEFAULT_CSS } from "./constants";
 
 interface CustomMatchers<R> {
   toMatchCSS: (expected: string) => string;

@@ -1,7 +1,7 @@
-import "../../testing/matchers.js";
+import "../../testing/matchers";
 
-import { generateCSS, html } from "../../testing/index.js";
-import { typography } from "./typography.plugin.js";
+import { generateCSS, html } from "../../testing/index";
+import { typography } from "./typography.plugin";
 
 test("generates variants correctly", async () => {
   const css = await generateCSS(
@@ -9,15 +9,13 @@ test("generates variants correctly", async () => {
     {
       plugins: [typography],
       theme: {
-        kit: {
-          typography: {
-            base: {
-              lineHeight: 1,
-            },
-            variants: {
-              headline: {
-                fontFamily: "red",
-              },
+        typography: {
+          base: {
+            lineHeight: "1",
+          },
+          variants: {
+            headline: {
+              fontFamily: "red",
             },
           },
         },
@@ -25,37 +23,23 @@ test("generates variants correctly", async () => {
     },
   );
 
-  expect(css).toMatchCSS(`
-    .typography {
-      line-height: 1;
-      --kit-typography-base-color: inherit;
-      --kit-typography-base-color-inverted: rgb(255, 255, 255);
-      --kit-typography-font-size: inherit;
-      color: var(--kit-typography-base-color);
-      font-size: var(--kit-typography-font-size)
-    }
-    .typography-headline {
-      font-family: red;
-    }
-  `);
+  expect(css).toMatchSnapshot();
 });
 
 test("generates colors correctly", async () => {
   const css = await generateCSS(
     html`<div
-      class="typography-primary typography-subtle typography-invert"
+      class="typography typography-primary typography-subtle typography-invert"
     ></div>`,
     {
       plugins: [typography],
       theme: {
-        kit: {
-          typography: {
-            colors: {
-              subtle: "rgb(40, 40, 40)",
-              primary: {
-                light: "red",
-                dark: "green",
-              },
+        typography: {
+          colors: {
+            subtle: "rgb(40, 40, 40)",
+            primary: {
+              light: "red",
+              dark: "green",
             },
           },
         },
@@ -63,41 +47,27 @@ test("generates colors correctly", async () => {
     },
   );
 
-  expect(css).toMatchCSS(`
-    .typography-subtle {
-      --kit-typography-base-color: rgb(40, 40, 40);
-      --kit-typography-base-color-inverted: rgb(215, 215, 215);
-    }
-    .typography-primary {
-      --kit-typography-base-color: red;
-      --kit-typography-base-color-inverted: green;
-    }
-    .typography-invert {
-      --kit-typography-base-color: var(--kit-typography-base-color-inverted);
-    }
-  `);
+  expect(css).toMatchSnapshot();
 });
 
 test("generates sizes correctly", async () => {
   const css = await generateCSS(
-    html`<div class="typography-headline typography-sm"></div>`,
+    html`<div class="typography typography-headline typography-sm"></div>`,
     {
       plugins: [typography],
       theme: {
-        kit: {
-          typography: {
-            variants: {
-              headline: {
-                fontFamily: "Lato",
-              },
+        typography: {
+          variants: {
+            headline: {
+              fontFamily: "Lato",
             },
-            sizes: {
-              sm: (variant: string) => {
-                if (variant === "headline") {
-                  return "2rem";
-                }
-                return "1rem";
-              },
+          },
+          sizes: {
+            sm: (variant: string) => {
+              if (variant === "headline") {
+                return "2rem";
+              }
+              return "1rem";
             },
           },
         },
@@ -105,13 +75,35 @@ test("generates sizes correctly", async () => {
     },
   );
 
-  expect(css).toMatchCSS(`
-    .typography-headline {
-      font-family: Lato;
-      --kit-typography-font-size-sm: 1rem
-    }
-    .typography-sm {
-      --kit-typography-font-size: var(--kit-typography-font-size-sm)
-    }
-  `);
+  expect(css).toMatchSnapshot();
+});
+
+test("generates gradients correctly", async () => {
+  const css = await generateCSS(
+    html`<div
+      class="typography typography-headline typography-gradient-to-b typography-sm"
+    ></div>`,
+    {
+      plugins: [typography],
+      theme: {
+        typography: {
+          variants: {
+            headline: {
+              fontFamily: "Lato",
+            },
+          },
+          sizes: {
+            sm: (variant: string) => {
+              if (variant === "headline") {
+                return "2rem";
+              }
+              return "1rem";
+            },
+          },
+        },
+      },
+    },
+  );
+
+  expect(css).toMatchSnapshot();
 });
