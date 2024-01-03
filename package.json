@@ -1,10 +1,11 @@
 {
   "name": "tailwind-toolkit",
-  "version": "1.0.0",
+  "version": "0.0.1-rc1",
   "description": "",
   "scripts": {
     "build": "tsup-node src/index.ts --dts --format cjs",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "pnpm run build"
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
