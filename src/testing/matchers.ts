@@ -48,7 +48,7 @@ export const toMatchCSS: CustomMatcher = function (received, argument) {
         const diffString = diff(expected, actual, {
           expand: this.expand,
         });
-        console.log(expected, actual);
+
         return (
           this.utils.matcherHint("toMatchCSS", undefined, undefined, options) +
           "\n\n" +

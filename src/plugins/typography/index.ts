@@ -1,2 +1,2 @@
 export * from "./typography.plugin";
-export * from "./typography.types";
+export type { TypographyOptions, TypographyTheme } from "./typography.types";

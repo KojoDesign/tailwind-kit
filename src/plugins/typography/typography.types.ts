@@ -1,3 +1,5 @@
+import { PluginAPI } from "tailwindcss/types/config";
+
 export type TypographyProperty =
   | "direction"
   | "fontFamily"
@@ -40,12 +42,21 @@ export type ColorValue = string | { light: string; dark: string };
 
 export type FontSizes<T> = Record<string, ((variant: T) => string) | string>;
 
-export type TypographyTheme<T extends string = string> = {
-  base: TypographyCSS;
-  variants: Record<T, TypographyCSS>;
-  sizes: FontSizes<T>;
-  colors: Record<string, ColorValue>;
+export type TypographyVariant = {
+  leading?: string;
+  family?: string;
+  weight?: string;
+  tracking?: string;
+  size?: Record<string, string> | string;
 };
+
+export interface TypographyTheme {
+  variants: {
+    DEFAULT: Required<TypographyVariant>;
+  } & Record<string, TypographyVariant>;
+  sizes: string[];
+  colors: { DEFAULT: Required<ColorValue> } & Record<string, ColorValue>;
+}
 
 export interface TypographyOptions {
   classPrefix: string;
@@ -54,4 +65,10 @@ export interface TypographyOptions {
     toOpacity: number;
     multiline: boolean;
   };
+}
+
+export interface TypographyConfig {
+  options: TypographyOptions;
+  theme: TypographyTheme;
+  api: PluginAPI;
 }

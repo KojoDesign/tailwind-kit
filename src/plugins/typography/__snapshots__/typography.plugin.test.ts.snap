@@ -102,23 +102,23 @@ exports[`generates colors correctly 1`] = `
 .typography {
     --kit-typography-color: inherit;
     --kit-typography-color-inverted: rgb(255, 255, 255);
-    --kit-typography-font-size: inherit;
-    --kit-typography-leading: 1em;
     color: var(--kit-typography-color);
     font-size: var(--kit-typography-font-size);
-    font-family: inherit
+    line-height: var(--kit-typography-leading)
 }
 .typography-subtle {
     --kit-typography-color: rgb(40, 40, 40);
-    --kit-typography-color-inverted: rgb(215, 215, 215)
+    --kit-typography-color-inverted: rgb(215, 215, 215);
+    color: var(--kit-typography-color)
 }
 .typography-primary {
     --kit-typography-color: red;
-    --kit-typography-color-inverted: green
+    --kit-typography-color-inverted: green;
+    color: var(--kit-typography-color)
 }
 .typography-invert {
     --kit-typography-color: var(--kit-typography-color-inverted);
-    --kit-typography-gradient-stops: rgba(255, 255, 255, 1) 100%, rgba(255, 255, 255, 0.8) 0%
+    --kit-typography-gradient-stops: rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 100%
 }"
 `;
 
@@ -224,25 +224,21 @@ exports[`generates gradients correctly 1`] = `
 .typography {
     --kit-typography-color: inherit;
     --kit-typography-color-inverted: rgb(255, 255, 255);
-    --kit-typography-font-size: inherit;
-    --kit-typography-leading: 1em;
     color: var(--kit-typography-color);
     font-size: var(--kit-typography-font-size);
-    font-family: inherit
+    line-height: var(--kit-typography-leading)
 }
 .typography-headline {
-    font-family: Lato;
-    --kit-typography-font-size-sm: 2rem;
-    --kit-typography-leading: 1em
+    font-family: Lato
 }
 .typography-sm {
     --kit-typography-font-size: var(--kit-typography-font-size-sm)
 }
 .typography-gradient-to-b {
-    --kit-typography-gradient-stops: rgba(255, 255, 255, 1) 100%, rgba(255, 255, 255, 0.8) 0%;
+    --kit-typography-gradient-stops: rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 1) 100%;
     mask-image: linear-gradient(to bottom, var(--kit-typography-gradient-stops));
-    mask-repeat: repeat-y;
-    mask-size: 100% calc(var(--kit-typography-leading) * 1em)
+    mask-size: 100% calc(var(--kit-typography-leading) * 1em);
+    mask-repeat: repeat-y
 }"
 `;
 
@@ -348,16 +344,12 @@ exports[`generates sizes correctly 1`] = `
 .typography {
     --kit-typography-color: inherit;
     --kit-typography-color-inverted: rgb(255, 255, 255);
-    --kit-typography-font-size: inherit;
-    --kit-typography-leading: 1em;
     color: var(--kit-typography-color);
     font-size: var(--kit-typography-font-size);
-    font-family: inherit
+    line-height: var(--kit-typography-leading)
 }
 .typography-headline {
-    font-family: Lato;
-    --kit-typography-font-size-sm: 2rem;
-    --kit-typography-leading: 1em
+    font-family: Lato
 }
 .typography-sm {
     --kit-typography-font-size: var(--kit-typography-font-size-sm)
@@ -464,17 +456,14 @@ exports[`generates variants correctly 1`] = `
     --tw-backdrop-sepia:  
 }
 .typography {
-    line-height: 1;
     --kit-typography-color: inherit;
     --kit-typography-color-inverted: rgb(255, 255, 255);
-    --kit-typography-font-size: inherit;
-    --kit-typography-leading: 1;
     color: var(--kit-typography-color);
     font-size: var(--kit-typography-font-size);
-    font-family: inherit
+    line-height: var(--kit-typography-leading);
+    --kit-typography-leading: 1
 }
 .typography-headline {
-    font-family: red;
-    --kit-typography-leading: 1em
+    font-family: red
 }"
 `;

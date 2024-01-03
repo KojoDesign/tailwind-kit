@@ -10,12 +10,12 @@ test("generates variants correctly", async () => {
       plugins: [typography],
       theme: {
         typography: {
-          base: {
-            lineHeight: "1",
-          },
           variants: {
+            DEFAULT: {
+              leading: "1",
+            },
             headline: {
-              fontFamily: "red",
+              family: "red",
             },
           },
         },
@@ -59,7 +59,7 @@ test("generates sizes correctly", async () => {
         typography: {
           variants: {
             headline: {
-              fontFamily: "Lato",
+              family: "Lato",
             },
           },
           sizes: {
@@ -89,7 +89,7 @@ test("generates gradients correctly", async () => {
         typography: {
           variants: {
             headline: {
-              fontFamily: "Lato",
+              family: "Lato",
             },
           },
           sizes: {

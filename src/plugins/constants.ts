@@ -8,3 +8,5 @@ export const LINEAR_DIRECTIONS = {
   br: "to bottom right",
   bl: "to bottom left",
 };
+
+export const DEFAULT = "DEFAULT";
