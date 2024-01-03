@@ -1,6 +1,6 @@
 import { withOptions } from "tailwindcss/plugin";
 
-import { DEFAULT, LINEAR_DIRECTIONS } from "../constants";
+import { LINEAR_DIRECTIONS } from "../constants";
 import { createClassName, referenceVariable } from "../utils";
 import { defaultOptions, defaultTheme } from "./typography.config";
 import {

@@ -1,13 +1,9 @@
-import path from "node:path";
-
 import postcss from "postcss";
 import tailwindcss, { Config } from "tailwindcss";
 
 export const html = String.raw;
 
 export async function generateCSS(html: string, config: Partial<Config>) {
-  let { currentTestName } = expect.getState();
-
   const processor = postcss(
     tailwindcss({
       content: [{ raw: html }],

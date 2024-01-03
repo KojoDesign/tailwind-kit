@@ -2,14 +2,18 @@ import kebabCase from "kebab-case";
 
 import { DEFAULT } from "./constants";
 
-export function createClassName(prefix: string, name?: string) {
-  const components = [`.${prefix}`];
+export function createUtilityName(prefix: string, name?: string) {
+  const components = [prefix];
 
   if (name && name !== DEFAULT) {
     components.push(kebabCase(name ?? ""));
   }
 
   return components.join("-");
+}
+
+export function createClassName(prefix: string, name?: string) {
+  return `.${createUtilityName(prefix, name)}`;
 }
 
 export function createVariableName(prefix: string, name: string) {
@@ -22,6 +26,8 @@ export function createVariableName(prefix: string, name: string) {
   return components.join("-");
 }
 
-export function referenceVariable(name: string) {
-  return `var(${name})`;
+export function referenceVariable<T>(name: string, defaultValue?: T) {
+  return defaultValue != null
+    ? `var(${name}, ${defaultValue})`
+    : `var(${name})`;
 }
