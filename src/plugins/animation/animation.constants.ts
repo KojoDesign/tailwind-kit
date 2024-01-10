@@ -63,22 +63,19 @@ export const VARIABLE_EXIT_TRANSLATE_Y = createVariableName(
   "translate-y",
 );
 
-export const VARIABLE_GROUP_PREFIX = createVariableName(
+export const VARIABLE_TIMING_FUNCTION = createVariableName(
   VARIABLE_PREFIX,
-  "group",
+  "timing-function",
 );
 
-export const VARIABLE_GROUP_DELAY = createVariableName(
-  VARIABLE_GROUP_PREFIX,
-  "delay",
-);
+export const VARIABLE_DELAY = createVariableName(VARIABLE_PREFIX, "delay");
 
-export const VARIABLE_GROUP_DURATION = createVariableName(
-  VARIABLE_GROUP_PREFIX,
+export const VARIABLE_DURATION = createVariableName(
+  VARIABLE_PREFIX,
   "duration",
 );
 
-export const VARIABLE_GROUP_PLAY_STATE = createVariableName(
-  VARIABLE_GROUP_PREFIX,
+export const VARIABLE_PLAY_STATE = createVariableName(
+  VARIABLE_PREFIX,
   "play-state",
 );

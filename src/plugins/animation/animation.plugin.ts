@@ -1,5 +1,5 @@
 import { withOptions } from "tailwindcss/plugin";
-import { CSSRuleObject } from "tailwindcss/types/config";
+import { CSSRuleObject, PluginUtils } from "tailwindcss/types/config";
 
 import {
   createClassName,
@@ -7,6 +7,8 @@ import {
   referenceVariable,
 } from "../utils";
 import {
+  VARIABLE_DELAY,
+  VARIABLE_DURATION,
   VARIABLE_ENTER_OPACITY,
   VARIABLE_ENTER_ROTATE,
   VARIABLE_ENTER_SCALE,
@@ -17,9 +19,8 @@ import {
   VARIABLE_EXIT_SCALE,
   VARIABLE_EXIT_TRANSLATE_X,
   VARIABLE_EXIT_TRANSLATE_Y,
-  VARIABLE_GROUP_DELAY,
-  VARIABLE_GROUP_DURATION,
-  VARIABLE_GROUP_PLAY_STATE,
+  VARIABLE_PLAY_STATE,
+  VARIABLE_TIMING_FUNCTION,
 } from "./animation.constants";
 import { AnimationOptions } from "./animation.types";
 
@@ -48,14 +49,26 @@ function rotate(degrees: string) {
  * https://github.com/jamiebuilds/tailwindcss-animate
  */
 const animation = withOptions<Partial<AnimationOptions>>(
-  ({ groupSteps = 10 } = {}) =>
+  ({ staggerCount = 10, staggerAmount = 1 } = {}) =>
     ({ addUtilities, matchUtilities, theme }) => {
       addUtilities({
         "@keyframes enter": theme("keyframes.enter"),
         "@keyframes exit": theme("keyframes.exit"),
         [createClassName("animate", "in")]: {
           animationName: "enter",
-          animationDuration: theme("animationDuration.DEFAULT"),
+          animationDuration: referenceVariable(
+            VARIABLE_DURATION,
+            theme("animationDuration.DEFAULT"),
+          ),
+          animationTimingFunction: referenceVariable(
+            VARIABLE_TIMING_FUNCTION,
+            theme("animationDuration.DEFAULT"),
+          ),
+          animationDelay: referenceVariable(
+            VARIABLE_DELAY,
+            theme("animationDuration.DEFAULT"),
+          ),
+          animationPlayState: referenceVariable(VARIABLE_PLAY_STATE, "running"),
           [VARIABLE_ENTER_OPACITY]: "initial",
           [VARIABLE_ENTER_SCALE]: "initial",
           [VARIABLE_ENTER_ROTATE]: "initial",
@@ -64,7 +77,18 @@ const animation = withOptions<Partial<AnimationOptions>>(
         },
         [createClassName("animate", "out")]: {
           animationName: "exit",
-          animationDuration: theme("animationDuration.DEFAULT"),
+          animationDuration: referenceVariable(
+            VARIABLE_DURATION,
+            theme("animationDuration.DEFAULT"),
+          ),
+          animationTimingFunction: referenceVariable(
+            VARIABLE_TIMING_FUNCTION,
+            theme("animationDuration.DEFAULT"),
+          ),
+          animationDelay: referenceVariable(
+            VARIABLE_DELAY,
+            theme("animationDuration.DEFAULT"),
+          ),
           [VARIABLE_EXIT_OPACITY]: "initial",
           [VARIABLE_EXIT_SCALE]: "initial",
           [VARIABLE_EXIT_ROTATE]: "initial",
@@ -112,13 +136,13 @@ const animation = withOptions<Partial<AnimationOptions>>(
               return ["l", "t"].includes(direction) ? `-${value}` : value;
             }
 
-            return {
-              ...acc,
-              [createUtilityName("slide-in-from", direction)]: (value) =>
-                ({ [enterVariableName]: getValue(value) }) as CSSRuleObject,
-              [createUtilityName("slide-out-to", direction)]: (value) =>
-                ({ [exitVariableName]: getValue(value) }) as CSSRuleObject,
-            };
+            acc[createUtilityName("slide-in-from", direction)] = (value) =>
+              ({ [enterVariableName]: getValue(value) }) as CSSRuleObject;
+
+            acc[createUtilityName("slide-out-to", direction)] = (value) =>
+              ({ [exitVariableName]: getValue(value) }) as CSSRuleObject;
+
+            return acc;
           },
           {} as Parameters<typeof matchUtilities>[0],
         ),
@@ -126,86 +150,76 @@ const animation = withOptions<Partial<AnimationOptions>>(
       );
 
       matchUtilities(
-        { duration: (value) => ({ animationDuration: value }) },
-        { values: filterDefault(theme("animationDuration") ?? {}) },
-      );
-
-      addUtilities({
-        [createClassName("animation", "group")]: {
-          [VARIABLE_GROUP_DURATION]: theme("animationDuration.DEFAULT"),
-          [VARIABLE_GROUP_DELAY]: theme("animationDelay.DEFAULT"),
-
-          "&.running": {
-            [VARIABLE_GROUP_PLAY_STATE]: "running",
-          },
-          "&.paused": {
-            [VARIABLE_GROUP_PLAY_STATE]: "paused",
-          },
-        },
-      });
-
-      matchUtilities(
         {
-          [createUtilityName("with", "delay")]: (value) => ({
-            [VARIABLE_GROUP_DELAY]: value,
+          duration: (value) => ({
+            [VARIABLE_DURATION]: value,
+            animationDuration: referenceVariable(VARIABLE_DURATION),
           }),
         },
-        { values: theme("animationDelay") },
-      );
-
-      matchUtilities(
         {
-          [createUtilityName("with", "duration")]: (value) => ({
-            [VARIABLE_GROUP_DURATION]: value,
-          }),
+          values: filterDefault(theme("animationDuration") ?? {}),
         },
-        { values: theme("animationDuration") },
       );
 
       matchUtilities(
         {
-          [createUtilityName("animation", "step")]: (value) => ({
-            animationDuration: referenceVariable(VARIABLE_GROUP_DURATION),
-            animationPlayState: referenceVariable(VARIABLE_GROUP_PLAY_STATE),
+          [createUtilityName("stagger")]: (value) => ({
+            animationDuration: referenceVariable(VARIABLE_DURATION, "inherit"),
+            animationTimingFunction: referenceVariable(
+              VARIABLE_TIMING_FUNCTION,
+              "inherit",
+            ),
+            animationPlayState: referenceVariable(
+              VARIABLE_PLAY_STATE,
+              "inherit",
+            ),
             animationDelay: `calc(${referenceVariable(
-              VARIABLE_GROUP_DELAY,
+              VARIABLE_DELAY,
+              "inherit",
             )} * ${value})`,
           }),
         },
         {
           respectImportant: true,
-          values: new Array(groupSteps).fill(0).reduce(
-            (acc, _, i) => ({
-              ...acc,
-              [i + 1]: i + 1,
-            }),
-            {},
-          ),
+          type: "number",
+          values: new Array(staggerCount).fill(0).reduce((acc, _, i) => {
+            acc[i + 1] = i * staggerAmount;
+            return acc;
+          }, {}),
         },
       );
 
       matchUtilities(
         {
-          [createUtilityName("animation", "group")]: (value) => ({
-            animationDuration: value,
+          delay: (value) => ({
+            [VARIABLE_DELAY]: value,
+            animationDelay: referenceVariable(VARIABLE_DELAY),
           }),
         },
-        { values: filterDefault(theme("animationDuration") ?? {}) },
-      );
-
-      matchUtilities(
-        { delay: (value) => ({ animationDelay: value }) },
         { values: theme("animationDelay") },
       );
 
       matchUtilities(
-        { ease: (value) => ({ animationTimingFunction: value }) },
+        {
+          ease: (value) => ({
+            [VARIABLE_TIMING_FUNCTION]: value,
+            animationTimingFunction: referenceVariable(
+              VARIABLE_TIMING_FUNCTION,
+            ),
+          }),
+        },
         { values: filterDefault(theme("animationTimingFunction") ?? {}) },
       );
 
       addUtilities({
-        [createClassName("running")]: { animationPlayState: "running" },
-        [createClassName("paused")]: { animationPlayState: "paused" },
+        [createClassName("running")]: {
+          [VARIABLE_PLAY_STATE]: "running",
+          animationPlayState: referenceVariable(VARIABLE_PLAY_STATE),
+        },
+        [createClassName("paused")]: {
+          [VARIABLE_PLAY_STATE]: "paused",
+          animationPlayState: referenceVariable(VARIABLE_PLAY_STATE),
+        },
       });
 
       matchUtilities(
@@ -226,14 +240,14 @@ const animation = withOptions<Partial<AnimationOptions>>(
   () => ({
     theme: {
       extend: {
-        animationDelay: ({ theme }: any) => ({
+        animationDelay: ({ theme }: PluginUtils) => ({
           ...theme("transitionDelay"),
         }),
-        animationDuration: ({ theme }: any) => ({
+        animationDuration: ({ theme }: PluginUtils) => ({
           0: "0ms",
           ...theme("transitionDuration"),
         }),
-        animationTimingFunction: ({ theme }: any) => ({
+        animationTimingFunction: ({ theme }: PluginUtils) => ({
           ...theme("transitionTimingFunction"),
         }),
         animationFillMode: {
@@ -248,19 +262,19 @@ const animation = withOptions<Partial<AnimationOptions>>(
           alternate: "alternate",
           "alternate-reverse": "alternate-reverse",
         },
-        animationOpacity: ({ theme }: any) => ({
+        animationOpacity: ({ theme }: PluginUtils) => ({
           DEFAULT: 0,
           ...theme("opacity"),
         }),
-        animationTranslate: ({ theme }: any) => ({
+        animationTranslate: ({ theme }: PluginUtils) => ({
           DEFAULT: "100%",
           ...theme("translate"),
         }),
-        animationScale: ({ theme }: any) => ({
+        animationScale: ({ theme }: PluginUtils) => ({
           DEFAULT: 0,
           ...theme("scale"),
         }),
-        animationRotate: ({ theme }: any) => ({
+        animationRotate: ({ theme }: PluginUtils) => ({
           DEFAULT: "30deg",
           ...theme("rotate"),
         }),

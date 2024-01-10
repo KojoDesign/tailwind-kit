@@ -1,5 +1,6 @@
 import { withOptions } from "tailwindcss/plugin";
 
+import { DeepPartial } from "../../types";
 import { LINEAR_DIRECTIONS } from "../constants";
 import { createClassName, referenceVariable } from "../utils";
 import { defaultOptions, defaultTheme } from "./typography.config";
@@ -137,7 +138,7 @@ function addInvert(config: TypographyConfig) {
   });
 }
 
-const typography = withOptions<Partial<TypographyOptions>>(
+const typography = withOptions<DeepPartial<TypographyOptions>>(
   (partialOptions) => (api) => {
     const options = getFullOptions(partialOptions);
     const theme = api.theme(options.themeKey) as TypographyTheme;

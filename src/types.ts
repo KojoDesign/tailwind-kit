@@ -4,6 +4,12 @@ import { Config } from "tailwindcss";
 import { AnimationOptions } from "./plugins/animation/animation.types";
 import { TypographyOptions } from "./plugins/typography/typography.types";
 
+export type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
 export type CustomMatcher = Parameters<
   typeof expect.extend
 >[0][keyof Parameters<typeof expect.extend>[0]];
@@ -16,6 +22,6 @@ export type Theme = <TDefaultValue = Config["theme"]>(
 export type ResolvableTo<T> = T | ((options: { theme: Theme }) => T);
 
 export type KitOptions = {
-  typography: TypographyOptions;
-  animation: AnimationOptions;
+  typography: TypographyOptions | false;
+  animation: AnimationOptions | false;
 };
