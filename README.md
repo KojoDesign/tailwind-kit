@@ -32,6 +32,7 @@ module.exports = {
   plugins: [kit]
 };
 ```
+
 ## What's in the Box
 
 - [Typography](typography/README.md)

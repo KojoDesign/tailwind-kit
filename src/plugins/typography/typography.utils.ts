@@ -3,6 +3,7 @@ import { TinyColor } from "@ctrl/tinycolor";
 import merge from "deepmerge";
 import { CSSRuleObject } from "tailwindcss/types/config";
 
+import { DeepPartial } from "../../types";
 import { DEFAULT } from "../constants";
 import { createVariableName, referenceVariable } from "../utils";
 import { defaultOptions } from "./typography.config";
@@ -48,9 +49,9 @@ export function getColorObject(color: ColorValue) {
 }
 
 export function getFullOptions(
-  options?: Partial<TypographyOptions>,
+  options?: DeepPartial<TypographyOptions>,
 ): TypographyOptions {
-  return merge(defaultOptions, options ?? {});
+  return merge(defaultOptions, options ?? {}) as TypographyOptions;
 }
 
 export function stringifyFamilies(families?: string | string[]) {
@@ -79,9 +80,10 @@ export function variantToCSS(
         (acc, [name, size]) => ({
           ...acc,
           // Only create variables for official sizes or the default
-          ...((sizes.includes(name) || name === DEFAULT) && {
-            [getSizeVariable(config, name)]: size,
-          }),
+          ...(sizes &&
+            (sizes.includes(name) || name === DEFAULT) && {
+              [getSizeVariable(config, name)]: size,
+            }),
         }),
         {} as Record<string, string>,
       );
@@ -136,7 +138,7 @@ export function getDefaultCSS(config: TypographyConfig): CSSRuleObject {
 
 export function getGradientStops(
   config: TypographyConfig,
-  reverse: boolean = false,
+  reverse = false,
 ): string {
   const {
     options: {
@@ -144,7 +146,7 @@ export function getGradientStops(
     },
   } = config;
 
-  const stops = [`rgba(255, 255, 255, ${toOpacity})`, `rgba(255, 255, 255, 1)`];
+  const stops = [`rgba(255, 255, 255, ${toOpacity})`, "rgba(255, 255, 255, 1)"];
 
   if (reverse) {
     stops.reverse();

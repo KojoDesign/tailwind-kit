@@ -1,3 +1,4 @@
 export interface AnimationOptions {
-  groupSteps?: number;
+  staggerCount?: number;
+  staggerAmount?: number;
 }

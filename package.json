@@ -1,6 +1,6 @@
 {
   "name": "@kojodesign/tailwindkit",
-  "version": "0.0.1-rc1",
+  "version": "0.0.1-rc2",
   "description": "",
   "scripts": {
     "build": "tsup-node src/index.ts --dts --format cjs",
@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "^1.4.1",
+    "@biomejs/biome": "^1.5.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.11",
