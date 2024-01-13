@@ -2,7 +2,6 @@ import { expect } from "expect";
 import { Config } from "tailwindcss";
 
 import { AnimationOptions } from "./plugins/animation/animation.types";
-import { TypographyOptions } from "./plugins/typography/typography.types";
 
 export type DeepPartial<T> = T extends object
   ? {
@@ -22,6 +21,5 @@ export type Theme = <TDefaultValue = Config["theme"]>(
 export type ResolvableTo<T> = T | ((options: { theme: Theme }) => T);
 
 export type KitOptions = {
-  typography: TypographyOptions | false;
   animation: AnimationOptions | false;
 };
