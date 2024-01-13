@@ -122,18 +122,18 @@ const animation = withOptions<Partial<AnimationOptions>>(
       );
 
       matchUtilities(
-        ["l", "r", "t", "b"].reduce(
+        ["left", "right", "top", "bottom"].reduce(
           (acc, direction) => {
-            const enterVariableName = ["l", "r"].includes(direction)
+            const enterVariableName = ["left", "right"].includes(direction)
               ? VARIABLE_ENTER_TRANSLATE_X
               : VARIABLE_ENTER_TRANSLATE_Y;
 
-            const exitVariableName = ["l", "r"].includes(direction)
+            const exitVariableName = ["left", "right"].includes(direction)
               ? VARIABLE_EXIT_TRANSLATE_X
               : VARIABLE_EXIT_TRANSLATE_Y;
 
             function getValue<T>(value: T) {
-              return ["l", "t"].includes(direction) ? `-${value}` : value;
+              return ["left", "top"].includes(direction) ? `-${value}` : value;
             }
 
             acc[createUtilityName("slide-in-from", direction)] = (value) =>

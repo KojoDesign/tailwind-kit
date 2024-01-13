@@ -6,11 +6,11 @@ export const defaultTheme: ResolvableTo<TypographyTheme> = ({ theme }) => ({
   sizes: ["sm"],
   variants: {
     DEFAULT: {
-      leading: theme("lineHeight.6"),
-      family: theme("fontFamily.sans"),
-      weight: theme("fontWeight.normal"),
-      tracking: theme("letterSpacing.wide"),
-      size: theme("fontSize.2xl"),
+      lineHeight: theme("lineHeight.6"),
+      fontFamily: theme("fontFamily.sans"),
+      fontWeight: theme("fontWeight.normal"),
+      letterSpacing: theme("letterSpacing.wide"),
+      fontSize: theme("fontSize.2xl"),
     },
   },
   colors: {

@@ -43,11 +43,11 @@ export type ColorValue = string | { light: string; dark: string };
 export type FontSizes<T> = Record<string, ((variant: T) => string) | string>;
 
 export type TypographyVariant = {
-  leading?: string;
-  family?: string;
-  weight?: string;
-  tracking?: string;
-  size?: Record<string, string> | string;
+  lineHeight?: string;
+  fontFamily?: string;
+  fontWeight?: string;
+  letterSpacing?: string;
+  fontSize?: Record<string, string> | string;
 };
 
 export interface TypographyTheme {

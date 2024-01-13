@@ -1,11 +1,18 @@
 import { all as mergeAll } from "deepmerge";
 import plugin from "tailwindcss/plugin";
 
-import { animation, easing, shorthand, text, typography } from "./plugins";
+import {
+  animation,
+  easing,
+  mask,
+  shorthand,
+  text,
+  typography,
+} from "./plugins";
 import { DeepPartial, KitOptions } from "./types";
 
 export default (options?: DeepPartial<KitOptions>) => {
-  const plugins = [easing, shorthand, text];
+  const plugins = [easing, mask, shorthand, text];
 
   if (options?.typography !== false) {
     plugins.push(typography(options?.typography ?? {}));
@@ -19,9 +26,7 @@ export default (options?: DeepPartial<KitOptions>) => {
 
   return plugin((api) => {
     for (const plugin of plugins) {
-      if (plugin.config) {
-        plugin.handler(api);
-      }
+      plugin.handler(api);
     }
   }, defaultConfig);
 };

@@ -14,14 +14,14 @@ module.exports = {
     typography: ({ theme }: any) => ({
       variants: {
         headline: {
-          family: theme('fontFamily.display'),
-          leading: theme('lineHeight.tight'),
-          tracking: theme('letterSpacing.tight'),
-          size: theme('textSize.lg')
+          fontFamily: theme('fontFamily.display'),
+          lineHeight: theme('lineHeight.tight'),
+          letterSpacing: theme('letterSpacing.tight'),
+          fontSize: theme('textSize.lg')
         },
         DEFAULT: {
-          family: theme('fontFamily.sans'),
-          leading: theme('lineHeight.tight'),
+          fontFamily: theme('fontFamily.sans'),
+          lineHeight: theme('lineHeight.tight'),
         }
       }
     })
@@ -36,16 +36,6 @@ This config will generate the classes `typography` (everything in `DEFAULT`) and
   Hello world
 </h1>
 ```
-
-Notice how the config doesn't use freeform CSS-in-JS. The plugin needs to perform some additional work under-the-hood with the values provided, so the config only accepts certain keys.
-
-They are:
-
-- **family:** Font family
-- **leading:** Line height
-- **tracking:** Letter spacing
-- **weight:** Font weight
-- **size:** Font size
 
 You can also pair this plugin with the [typescale plugin](../typescale/README.md) to generate a consistent type scale to use in your typography.
 

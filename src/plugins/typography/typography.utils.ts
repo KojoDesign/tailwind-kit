@@ -58,50 +58,50 @@ export function stringifyFamilies(families?: string | string[]) {
   return Array.isArray(families) ? families?.join(", ") : families;
 }
 
-export function variantToCSS(
+function getSizeVariables(
   config: TypographyConfig,
   variant: TypographyVariant,
-): CSSRuleObject {
+) {
   const { theme } = config;
   const { sizes } = theme;
-
-  const {
-    leading: lineHeight,
-    family,
-    weight: fontWeight,
-    tracking: letterSpacing,
-  } = variant;
 
   let sizeVariables: Record<string, string> = {};
 
   if ("size" in variant) {
-    if (typeof variant.size === "object") {
-      sizeVariables = Object.entries(variant.size).reduce(
-        (acc, [name, size]) => ({
-          ...acc,
-          // Only create variables for official sizes or the default
-          ...(sizes &&
-            (sizes.includes(name) || name === DEFAULT) && {
-              [getSizeVariable(config, name)]: size,
-            }),
-        }),
+    if (typeof variant.fontSize === "object") {
+      sizeVariables = Object.entries(variant.fontSize).reduce(
+        (acc, [name, size]) => {
+          if (sizes?.includes(name) || name === DEFAULT) {
+            acc[getSizeVariable(config, name)] = size;
+          }
+          return acc;
+        },
         {} as Record<string, string>,
       );
 
-      if (variant.size[DEFAULT]) {
+      if (variant.fontSize[DEFAULT]) {
         sizeVariables[VARIABLE_FONT_SIZE] = referenceVariable(
           getSizeVariable(config, DEFAULT),
         );
       }
     } else {
-      sizeVariables = { [VARIABLE_FONT_SIZE]: variant.size as string };
+      sizeVariables = { [VARIABLE_FONT_SIZE]: variant.fontSize as string };
     }
   }
 
-  const fontFamily = stringifyFamilies(family);
+  return sizeVariables;
+}
 
+export function variantToCSS(
+  config: TypographyConfig,
+  variant: TypographyVariant,
+): CSSRuleObject {
+  const { lineHeight, fontFamily: family, fontWeight, letterSpacing } = variant;
+
+  const fontFamily = stringifyFamilies(family);
+  console.log(JSON.stringify(variant), getSizeVariables(config, variant));
   return {
-    ...sizeVariables,
+    ...getSizeVariables(config, variant),
     // We store this in a variable so we can use it in the gradient variants
     ...(lineHeight && { [VARIABLE_LEADING]: lineHeight }),
     ...(fontWeight && { fontWeight }),
