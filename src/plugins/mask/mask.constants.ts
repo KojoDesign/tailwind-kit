@@ -1,4 +1,4 @@
-import { GLOBAL_VARIABLE_PREFIX, TW_VARIABLE_PREFIX } from "../../constants";
+import { GLOBAL_VARIABLE_PREFIX } from "../../constants";
 import { LINEAR_DIRECTIONS } from "../constants";
 import { createVariableName, referenceVariable } from "../utils";
 import { getLinearGradient, getRadialGradient } from "./mask.utils";
@@ -18,17 +18,17 @@ export const VARIABLE_MASK_REACH = createVariableName(
 export const VARIABLE_MASK_AT = createVariableName(VARIABLE_MASK_PREFIX, "at");
 
 export const VARIABLE_MASK_POINT_FROM = createVariableName(
-  TW_VARIABLE_PREFIX,
+  VARIABLE_MASK_PREFIX,
   "gradient-from-position",
 );
 
 export const VARIABLE_MASK_POINT_TO = createVariableName(
-  TW_VARIABLE_PREFIX,
+  VARIABLE_MASK_PREFIX,
   "gradient-to-position",
 );
 
 export const VARIABLE_MASK_POINT_VIA = createVariableName(
-  TW_VARIABLE_PREFIX,
+  VARIABLE_MASK_PREFIX,
   "gradient-via-position",
 );
 

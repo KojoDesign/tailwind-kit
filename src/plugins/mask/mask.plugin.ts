@@ -16,6 +16,8 @@ import {
   VARIABLE_MASK_AT,
   VARIABLE_MASK_FROM,
   VARIABLE_MASK_FROM_OPACITY,
+  VARIABLE_MASK_POINT_FROM,
+  VARIABLE_MASK_POINT_TO,
   VARIABLE_MASK_POINT_VIA,
   VARIABLE_MASK_REACH,
   VARIABLE_MASK_STOPS,
@@ -68,17 +70,37 @@ export const mask = plugin(
     /*                                 Mask Stops                                 */
     /* -------------------------------------------------------------------------- */
 
+    /* ----------------------------- Stop Positions ----------------------------- */
+
+    matchUtilities(
+      {
+        [createUtilityName(MASK_PREFIX, "from")]: (value) => ({
+          [VARIABLE_MASK_POINT_FROM]: value,
+        }),
+        [createUtilityName(MASK_PREFIX, "to")]: (value) => ({
+          [VARIABLE_MASK_POINT_TO]: value,
+        }),
+        [createUtilityName(MASK_PREFIX, "via")]: (value) => ({
+          [VARIABLE_MASK_POINT_VIA]: value,
+        }),
+      },
+      {
+        values: theme("maskStopPositions", theme("gradientColorStopPositions")),
+        type: "position",
+      },
+    );
+
     /* ------------------------------ Stop Opacity ------------------------------ */
 
     matchUtilities(
       {
-        [createUtilityName(MASK_PREFIX, "opacity-from")]: (value) => ({
+        [createUtilityName(MASK_PREFIX, "from-opacity")]: (value) => ({
           [VARIABLE_MASK_FROM_OPACITY]: value,
         }),
-        [createUtilityName(MASK_PREFIX, "opacity-to")]: (value) => ({
+        [createUtilityName(MASK_PREFIX, "to-opacity")]: (value) => ({
           [VARIABLE_MASK_TO_OPACITY]: value,
         }),
-        [createUtilityName(MASK_PREFIX, "opacity-via")]: (value) => ({
+        [createUtilityName(MASK_PREFIX, "via-opacity")]: (value) => ({
           [VARIABLE_MASK_POINT_VIA]: "",
           [VARIABLE_MASK_STOPS]: [
             referenceVariable(VARIABLE_MASK_FROM),
@@ -98,28 +120,29 @@ export const mask = plugin(
     /* --------------------------------- Repeat --------------------------------- */
 
     addUtilities({
-      [createUtilityName(MASK_PREFIX, "repeat")]: {
+      [createClassName(MASK_PREFIX, "repeat")]: {
         maskRepeat: "repeat",
       },
-      [createUtilityName(MASK_PREFIX, "repeat-x")]: {
+      [createClassName(MASK_PREFIX, "repeat-x")]: {
         maskRepeat: "repeat-x",
       },
-      [createUtilityName(MASK_PREFIX, "repeat-y")]: {
+      [createClassName(MASK_PREFIX, "repeat-y")]: {
         maskRepeat: "repeat-y",
       },
-      [createUtilityName(MASK_PREFIX, "repeat-space")]: {
+      [createClassName(MASK_PREFIX, "repeat-space")]: {
         maskRepeat: "space",
       },
-      [createUtilityName(MASK_PREFIX, "round")]: {
+      [createClassName(MASK_PREFIX, "round")]: {
         maskRepeat: "round",
       },
-      [createUtilityName(MASK_PREFIX, "no-repeat")]: {
+      [createClassName(MASK_PREFIX, "no-repeat")]: {
         maskRepeat: "no-repeat",
       },
     });
 
     /* ---------------------------------- Size ---------------------------------- */
 
+    // Custom size utility for correctly masking multiline text
     addUtilities({
       [createClassName(MASK_PREFIX, "text")]: {
         maskSize: `100% ${referenceVariable(VARIABLE_LEADING)}`,

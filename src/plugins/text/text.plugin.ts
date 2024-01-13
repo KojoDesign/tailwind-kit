@@ -8,15 +8,15 @@ import { VARIABLE_LEADING } from "./text.constants";
  * https://github.com/hacknug/tailwindcss-text-fill-stroke
  */
 const text = plugin(
-  ({ matchUtilities, addBase, theme }) => {
+  ({ matchUtilities, config, addBase, theme }) => {
     const classPrefix = "text";
 
-    const defaultLineHeight = theme("lineHeight")?.DEFAULT ?? "1.5em";
-
+    // Used for proper text masking via mask-text
     addBase({
       html: {
-        // Used for proper text masking
-        [VARIABLE_LEADING]: defaultLineHeight,
+        [VARIABLE_LEADING]: config("corePlugins").includes("preflight")
+          ? "1.5em"
+          : "1em",
       },
     });
 
