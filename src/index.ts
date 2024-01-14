@@ -4,6 +4,8 @@ import plugin from "tailwindcss/plugin";
 import { animation, easing, mask, shorthand, text } from "./plugins";
 import { DeepPartial, KitOptions } from "./types";
 
+export * from "./helpers";
+
 export default (options?: DeepPartial<KitOptions>) => {
   const plugins = [easing, mask, shorthand, text];
 
