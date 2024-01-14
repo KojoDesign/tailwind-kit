@@ -43,17 +43,17 @@ function handleDefinitionOrGroup(key: string, value: FontSizeDefinition) {
 
   return Object.entries(sizes).map(([name, value]) => {
     const lineHeight = Array.isArray(value) ? value[1] : undefined;
+
     const size = Array.isArray(value) ? value[0] : value;
 
+    const styles = {
+      ...base,
+      ...(lineHeight && { lineHeight }),
+    };
+
     return [
-      key === "DEFAULT" ? key : `${key}-${name}`,
-      [
-        size,
-        {
-          ...base,
-          ...(lineHeight && { lineHeight }),
-        },
-      ],
+      name === "DEFAULT" ? key : `${key}-${name}`,
+      Object.keys(styles).length === 0 ? size : [size, styles],
     ];
   });
 }
@@ -65,7 +65,7 @@ export function defineFontSizes(groups: GroupMapping) {
         return handleLiteral(group, value);
       }
 
-      if ("base" in value && typeof value.base === "object") {
+      if (typeof value === "object" && ("size" in value || "sizes" in value)) {
         return handleDefinitionOrGroup(group, value as FontSizeDefinition);
       }
 

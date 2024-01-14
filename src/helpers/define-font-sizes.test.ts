@@ -83,10 +83,14 @@ test("works with single sizes", () => {
       },
       size: ["1.5rem", "1.75rem"],
     },
+    subtitle: {
+      size: "1rem",
+    },
   });
 
   expect(styles).toStrictEqual({
     title: ["1rem", "1.25rem"],
+    subtitle: "1rem",
     DEFAULT: [
       "1.5rem",
       {
