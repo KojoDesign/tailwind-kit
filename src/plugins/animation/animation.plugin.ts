@@ -62,11 +62,11 @@ const animation = withOptions<Partial<AnimationOptions>>(
           ),
           animationTimingFunction: referenceVariable(
             VARIABLE_TIMING_FUNCTION,
-            theme("animationDuration.DEFAULT"),
+            theme("animationTimingFunction.DEFAULT"),
           ),
           animationDelay: referenceVariable(
             VARIABLE_DELAY,
-            theme("animationDuration.DEFAULT"),
+            theme("animationDelay.DEFAULT"),
           ),
           animationPlayState: referenceVariable(VARIABLE_PLAY_STATE, "running"),
           [VARIABLE_ENTER_OPACITY]: "initial",
