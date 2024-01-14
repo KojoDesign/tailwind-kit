@@ -1,6 +1,6 @@
 {
   "name": "@kojodesign/tailwindkit",
-  "version": "0.0.1-rc8",
+  "version": "0.0.1-rc9",
   "description": "",
   "scripts": {
     "build": "tsup-node src/index.ts --dts --format cjs",
