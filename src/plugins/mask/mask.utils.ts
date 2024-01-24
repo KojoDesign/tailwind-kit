@@ -12,6 +12,7 @@ export function getRadialGradient(shape: string) {
   gradient += ` ${referenceVariable(VARIABLE_MASK_REACH)}`;
   gradient += ` at ${referenceVariable(VARIABLE_MASK_AT)}, `;
   gradient += referenceVariable(VARIABLE_MASK_STOPS);
+  gradient += ")";
 
   return gradient;
 }
