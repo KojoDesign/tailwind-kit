@@ -1,6 +1,6 @@
 {
   "name": "@kojodesign/tailwindkit",
-  "version": "0.0.1-rc10",
+  "version": "0.0.1-rc11",
   "description": "",
   "scripts": {
     "build": "tsup-node src/index.ts --dts --format cjs",
@@ -39,6 +39,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
     "deepmerge": "^4.3.1",
-    "kebab-case": "^1.0.2"
+    "kebab-case": "^1.0.2",
+    "tailwindcss-3d": "^1.0.4"
   }
 }

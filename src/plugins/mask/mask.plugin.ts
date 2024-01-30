@@ -144,7 +144,7 @@ export const mask = plugin(
 
     // Custom size utility for correctly masking multiline text
     addUtilities({
-      [createClassName(MASK_PREFIX, "text")]: {
+      [createClassName(MASK_PREFIX, "lines")]: {
         maskSize: `100% ${referenceVariable(VARIABLE_LEADING)}`,
       },
     });
@@ -193,6 +193,20 @@ export const mask = plugin(
       {
         values: theme("backgroundPosition"),
       },
+    );
+
+    /* -------------------------------------------------------------------------- */
+    /*                                Mask Presets                                */
+    /* -------------------------------------------------------------------------- */
+
+    addUtilities(
+      ["padding", "border"].map((value) => ({
+        [createClassName(MASK_PREFIX, value)]: {
+          mask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) ${value}-box`,
+          maskComposite: "subtract",
+          "--webkit-mask-composite": "xor",
+        },
+      })),
     );
   },
   {
