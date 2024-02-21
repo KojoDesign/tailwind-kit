@@ -104,8 +104,9 @@ export const mask = plugin(
           [VARIABLE_MASK_POINT_VIA]: "",
           [VARIABLE_MASK_STOPS]: [
             referenceVariable(VARIABLE_MASK_FROM),
-            `rgba(0,0,0,${value})`,
-            referenceVariable(VARIABLE_MASK_POINT_VIA),
+            `rgba(0,0,0,${value}) ${referenceVariable(
+              VARIABLE_MASK_POINT_VIA,
+            )}`,
             referenceVariable(VARIABLE_MASK_TO),
           ].join(", "),
         }),
