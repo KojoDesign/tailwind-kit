@@ -27,6 +27,12 @@ import {
 
 export const mask = plugin(
   ({ addUtilities, matchUtilities, theme }) => {
+    addUtilities({
+      "mask-none": {
+        maskImage: "none",
+      },
+    });
+
     matchUtilities(
       {
         mask: (value) => ({

@@ -65,6 +65,15 @@ test("mask-size", async () => {
   expect(css).toMatchSnapshot();
 });
 
+test("mask-none", async () => {
+  const css = await generateCSS(
+    html`<div class="mask-none sm:mask-to-bl sm:mask-text"></div>`,
+    { plugins: [mask] },
+  );
+
+  expect(css).toMatchSnapshot();
+});
+
 test("mask-text", async () => {
   const css = await generateCSS(
     html`<div class="mask-to-bl mask-text"></div>`,

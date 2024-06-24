@@ -99,6 +99,21 @@ exports[`mask-at 1`] = `
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
 }
+mask-none {
+    mask-image: none
+}
+.mask-circle {
+    --kit-mask-from-opacity: 1;
+    --kit-mask-to-opacity: 0;
+    --kit-mask-gradient-from-position: 0%;
+    --kit-mask-gradient-to-position: 100%;
+    --kit-mask-from: rgba(0,0,0,var(--kit-mask-from-opacity)) var(--kit-mask-gradient-from-position, "");
+    --kit-mask-to: rgba(0,0,0,var(--kit-mask-to-opacity)) var(--kit-mask-gradient-to-position, "");
+    --kit-mask-stops: var(--kit-mask-from), var(--kit-mask-to);
+    --kit-mask-reach: closest-side;
+    --kit-mask-at: center;
+    mask-image: radial-gradient(circle var(--kit-mask-reach) at var(--kit-mask-at), var(--kit-mask-stops))
+}
 .at-center {
     --kit-mask-at: center
 }"
@@ -202,6 +217,9 @@ exports[`mask-composite 1`] = `
     --tw-backdrop-opacity:  ;
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
+}
+mask-none {
+    mask-image: none
 }
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
@@ -322,6 +340,9 @@ exports[`mask-from 1`] = `
     --tw-backdrop-opacity:  ;
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
+}
+mask-none {
+    mask-image: none
 }
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
@@ -445,6 +466,9 @@ exports[`mask-from-opacity 1`] = `
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
 }
+mask-none {
+    mask-image: none
+}
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
     --kit-mask-to-opacity: 0;
@@ -465,7 +489,7 @@ exports[`mask-from-opacity 1`] = `
 }
 .mask-via-opacity-50 {
     --kit-mask-gradient-via-position: ;
-    --kit-mask-stops: var(--kit-mask-from), rgba(0,0,0,0.5), var(--kit-mask-gradient-via-position), var(--kit-mask-to)
+    --kit-mask-stops: var(--kit-mask-from), rgba(0,0,0,0.5) var(--kit-mask-gradient-via-position), var(--kit-mask-to)
 }"
 `;
 
@@ -568,6 +592,9 @@ exports[`mask-image 1`] = `
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
 }
+mask-none {
+    mask-image: none
+}
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
     --kit-mask-to-opacity: 0;
@@ -579,6 +606,124 @@ exports[`mask-image 1`] = `
     --kit-mask-reach: closest-side;
     --kit-mask-at: center;
     mask-image: linear-gradient(to bottom left, var(--kit-mask-stops))
+}"
+`;
+
+exports[`mask-none 1`] = `
+"*, ::before, ::after {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-pan-x:  ;
+    --tw-pan-y:  ;
+    --tw-pinch-zoom:  ;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-gradient-from-position:  ;
+    --tw-gradient-via-position:  ;
+    --tw-gradient-to-position:  ;
+    --tw-ordinal:  ;
+    --tw-slashed-zero:  ;
+    --tw-numeric-figure:  ;
+    --tw-numeric-spacing:  ;
+    --tw-numeric-fraction:  ;
+    --tw-ring-inset:  ;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-blur:  ;
+    --tw-brightness:  ;
+    --tw-contrast:  ;
+    --tw-grayscale:  ;
+    --tw-hue-rotate:  ;
+    --tw-invert:  ;
+    --tw-saturate:  ;
+    --tw-sepia:  ;
+    --tw-drop-shadow:  ;
+    --tw-backdrop-blur:  ;
+    --tw-backdrop-brightness:  ;
+    --tw-backdrop-contrast:  ;
+    --tw-backdrop-grayscale:  ;
+    --tw-backdrop-hue-rotate:  ;
+    --tw-backdrop-invert:  ;
+    --tw-backdrop-opacity:  ;
+    --tw-backdrop-saturate:  ;
+    --tw-backdrop-sepia:  
+}
+::backdrop {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-pan-x:  ;
+    --tw-pan-y:  ;
+    --tw-pinch-zoom:  ;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-gradient-from-position:  ;
+    --tw-gradient-via-position:  ;
+    --tw-gradient-to-position:  ;
+    --tw-ordinal:  ;
+    --tw-slashed-zero:  ;
+    --tw-numeric-figure:  ;
+    --tw-numeric-spacing:  ;
+    --tw-numeric-fraction:  ;
+    --tw-ring-inset:  ;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-blur:  ;
+    --tw-brightness:  ;
+    --tw-contrast:  ;
+    --tw-grayscale:  ;
+    --tw-hue-rotate:  ;
+    --tw-invert:  ;
+    --tw-saturate:  ;
+    --tw-sepia:  ;
+    --tw-drop-shadow:  ;
+    --tw-backdrop-blur:  ;
+    --tw-backdrop-brightness:  ;
+    --tw-backdrop-contrast:  ;
+    --tw-backdrop-grayscale:  ;
+    --tw-backdrop-hue-rotate:  ;
+    --tw-backdrop-invert:  ;
+    --tw-backdrop-opacity:  ;
+    --tw-backdrop-saturate:  ;
+    --tw-backdrop-sepia:  
+}
+mask-none {
+    mask-image: none
+}
+@media (min-width: 640px) {
+    .sm\\:mask-to-bl {
+        --kit-mask-from-opacity: 1;
+        --kit-mask-to-opacity: 0;
+        --kit-mask-gradient-from-position: 0%;
+        --kit-mask-gradient-to-position: 100%;
+        --kit-mask-from: rgba(0,0,0,var(--kit-mask-from-opacity)) var(--kit-mask-gradient-from-position, "");
+        --kit-mask-to: rgba(0,0,0,var(--kit-mask-to-opacity)) var(--kit-mask-gradient-to-position, "");
+        --kit-mask-stops: var(--kit-mask-from), var(--kit-mask-to);
+        --kit-mask-reach: closest-side;
+        --kit-mask-at: center;
+        mask-image: linear-gradient(to bottom left, var(--kit-mask-stops))
+    }
 }"
 `;
 
@@ -680,6 +825,21 @@ exports[`mask-reach 1`] = `
     --tw-backdrop-opacity:  ;
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
+}
+mask-none {
+    mask-image: none
+}
+.mask-circle {
+    --kit-mask-from-opacity: 1;
+    --kit-mask-to-opacity: 0;
+    --kit-mask-gradient-from-position: 0%;
+    --kit-mask-gradient-to-position: 100%;
+    --kit-mask-from: rgba(0,0,0,var(--kit-mask-from-opacity)) var(--kit-mask-gradient-from-position, "");
+    --kit-mask-to: rgba(0,0,0,var(--kit-mask-to-opacity)) var(--kit-mask-gradient-to-position, "");
+    --kit-mask-stops: var(--kit-mask-from), var(--kit-mask-to);
+    --kit-mask-reach: closest-side;
+    --kit-mask-at: center;
+    mask-image: radial-gradient(circle var(--kit-mask-reach) at var(--kit-mask-at), var(--kit-mask-stops))
 }
 .reach-cover {
     --kit-mask-reach: farthest-corner
@@ -784,6 +944,9 @@ exports[`mask-repeat 1`] = `
     --tw-backdrop-opacity:  ;
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
+}
+mask-none {
+    mask-image: none
 }
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
@@ -901,6 +1064,9 @@ exports[`mask-size 1`] = `
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
 }
+mask-none {
+    mask-image: none
+}
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
     --kit-mask-to-opacity: 0;
@@ -1017,6 +1183,9 @@ exports[`mask-text 1`] = `
     --tw-backdrop-saturate:  ;
     --tw-backdrop-sepia:  
 }
+mask-none {
+    mask-image: none
+}
 .mask-to-bl {
     --kit-mask-from-opacity: 1;
     --kit-mask-to-opacity: 0;
@@ -1028,8 +1197,5 @@ exports[`mask-text 1`] = `
     --kit-mask-reach: closest-side;
     --kit-mask-at: center;
     mask-image: linear-gradient(to bottom left, var(--kit-mask-stops))
-}
-.mask-text {
-    mask-size: 100% var(--kit-text-leading)
 }"
 `;
